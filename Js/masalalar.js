@@ -32,25 +32,27 @@ function Total(numbers) {
 // 2-masala POLINDROM SON
 
 function polinumber(number) {
+   // number = 121
+    console.log(number);
  arr = [];
    let son = number.toString() ;
     let natija = son.split("") ;
-   arr.push(natija)
-    let  result = arr.reverse().join();
-    let last = Number(result)
-    console.log(arr);
-    console.log(result);
+        console.log(natija);
+    
+    let  result = natija.reverse()
+    let res = result.join("");
+    let last = Number(res)
  
-    if (last = number) {
+    if (last === number) {
         console.log("ishladi");
-         return true;
+         return true
     }else{
         console.log("ishlamadi");
   
     }
 
 }
-polinumber(121);
+polinumber(124);
 
 
 
@@ -68,7 +70,7 @@ function kabisa (year) {
 }
 kabisa (4) ; 
 
- //4 - MASALA
+//  //4 - MASALA
 
  function NegativeNumbers(numbers) {   
     let negatives = [];
