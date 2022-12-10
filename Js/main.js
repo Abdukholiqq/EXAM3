@@ -37,7 +37,7 @@ elForm.addEventListener("submit", function (e) {
   elInput.textContent = "";
  
     const addNewsHandler = () => {
-        // let cards = document.createElement("div")
+ 
         mainDiv.style.width = "400px";
         mainDiv.style.flexDirection = "row";
         mainDiv.style.padding = "8px";
@@ -69,16 +69,9 @@ elForm.addEventListener("submit", function (e) {
         nameValue = "";
         emailValue = "";
         bodyTextValue = "";
-        elemDel.addEventListener("click", () => {
-            // mainDiv.style.display = "none"
-            
-
-        })
-
-   
-
-   mainDiv.prepend(NewCard) ;
-elMainCard.prepend(mainDiv)
+    
+   elMainCard.prepend(NewCard) ;
+ 
 
  
      
@@ -87,26 +80,14 @@ elMainCard.prepend(mainDiv)
     
                   
 
-
-// elForm.textContent = "";
-
-
-
-        // const newItem = {
-        //      id: data.length,
-        //     name: nameValue,
-        //     email: emailValue,
-        //     body: bodyTextValue,
-        // };
-        
-         
+ 
     };
     addNewsHandler()
     
     
 })
    
-  // mainDiv.prepend(newItem)
+ 
 
 
 
