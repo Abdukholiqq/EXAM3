@@ -1,137 +1,107 @@
 let elForm = document.querySelector("form");
 let elInput = document.querySelector(".input");
-let  elSearch = document.querySelector("#search");
+let elSearch = document.querySelector("#search");
+const elSelected = document.querySelector("#select");
 let elMainCard = document.querySelector(".mainCard")
 let mainDiv = document.querySelector(".mainDiv")
- 
- for (let i = 0; i < data.length; i++) {
-    let element = data[i];
-         
-        function render(data) {
-             const mainDiv = document.createElement("div");
-            mainDiv.style.width = "400px";
-            mainDiv.style.flexDirection = "row";
-            mainDiv.style.padding = "8px";
-            mainDiv.style.gap = "15px";
-            mainDiv.style.border = "2px solid green";
-            mainDiv.style.borderRadius = "10px";
-        
-            mainDiv.innerHTML = `
-            <h4> Name : ${element.name}</h4>
-            <h4> E-mail: ${element.email}</h4>
-            <p> Data : ${element.body}</p>   
-            <p> Post Id : ${element.postId}</p>
-            <p> Id : ${element.id}</p>  
-            <button class="bg-danger data-id=${element.id} border-0 rounded-2 "> Delete </button> `
-            elMainCard.appendChild(mainDiv) 
-        }
-        render(data) ;
-    };
 
 
+// RENDER
 
+function render(data) {
+    elMainCard.textContent = "";
+    for (let i = 0; i < data.length; i++) {
+        let element = data[i];
 
-    //  POST QO'SHISH 
-elForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-  elInput.textContent = "";
- 
-    const addNewsHandler = () => {
- 
+        const mainDiv = document.createElement("div");
         mainDiv.style.width = "400px";
         mainDiv.style.flexDirection = "row";
         mainDiv.style.padding = "8px";
         mainDiv.style.gap = "15px";
-        mainDiv.style.border = "2px solid green";
-        mainDiv.style.borderRadius = "10px";
-          
-        const nameValue = elForm.querySelector("#userName").value;  
-        const emailValue = elForm.querySelector("#email").value;
-        const bodyTextValue = elForm.querySelector("#bodyText").value;
-      
-        const Name = document.createElement("h4");
-        Name.textContent =  nameValue;
-        mainDiv.appendChild(Name);
+        mainDiv.style.border = "3px solid green";
+        mainDiv.style.borderRadius = "25px";
+        mainDiv.style.backgroundColor = "blue"
 
-    const Email = document.createElement("h4");
-    Email.textContent = emailValue ;
-    mainDiv.appendChild(Email);
-
-    const Body = document.createElement("p");
-    Body.textContent = bodyTextValue ;
-    mainDiv.appendChild(Body);
-     
-    const elemDel = document.createElement ("button");
-        elemDel.className = "bg-danger border-0 rounded-2" ;
-        elemDel.textContent = "Delate"
-        mainDiv.appendChild(elemDel)
-         
-        nameValue = "";
-        emailValue = "";
-        bodyTextValue = "";
-    
-   elMainCard.prepend(NewCard) ;
- 
-
- 
-     
- 
-  
-    
-                  
-
- 
-    };
-    addNewsHandler()
-    
-    
-})
-   
- 
+        mainDiv.innerHTML = `
+            <h4 class="mb-3"> Name : ${element.name}</h4>
+            <h4 class="mb-3"> E-mail: ${element.email}</h4>
+            <p class="mb-3"> Data : ${element.body}</p>   
+            <p class="mb-3"> Post Id : ${element.postId}</p>
+            <p class="mb-3"> Id : ${element.id}</p>  
+            <button  data-id="${element.id}" class="bg-danger w-75 mb-2 border-0 rounded-2 "> Delete </button> `
+        elMainCard.appendChild(mainDiv)
+    }
+};
+render(data);
 
 
+// SEARCH
+
+elSearch.addEventListener("input", () => {
+    const elSearchValue = elSearch.value.trim();
+    console.log(elSearchValue);
+    const elReg = new RegExp(elSearchValue, "gi");
+    const filterItem = data.filter(
+        (element) => element.name.match(elReg)
+    );
+    if (filterItem.length > 0) {
+        render(filterItem);
+    }
+});
+
+//  DELATE
+
+elMainCard.addEventListener("click", function (e) {
+    const targetT = e.target;
+    const id = e.target.dataset.id;
+    if (targetT.matches(".bg-danger")) {
+        const filteredItems = data.filter((element) => {
+            if (element.id != id) {
+                return element;
+            }
+        });
+        data = filteredItems;
+        render(filteredItems);
+    }
+});
 
 
+// SELECT
 
+const optionSelect = (data) => {
+    const postIds = [];
+    const selectFragment = document.createDocumentFragment();
+    const Option = document.createElement('option');
+    Option.textContent = "All";
+    Option.value = "All";
+    selectFragment.appendChild(Option);
 
+    data.forEach((element) => {
+        if (!postIds.includes(element.postId)) {
+            postIds.push(element.postId);
 
-
-    // Delate 
-    elMainCard.addEventListener("click", function (e) {
-   const element = e.target;
-
-   if (element.matches(".bg-danger")) {
-     console.log("delate");
-     const id = element.dataset.id ;
-     console.log(id);
-
-    const filteredArray =  data.filter(function(element){
-        if(element.id !== Number(id)) {
-             return element
+            const Option = document.createElement('option');
+            Option.textContent = element.postId;
+            Option.value = element.postId;
+            selectFragment.appendChild(Option);
         }
-    })
-  console.log(filteredArray);
-  render(filteredArray)
+    });
+    elSelected.appendChild(selectFragment);
+}
+optionSelect(data);
 
-   }
-    })
+elSelected.addEventListener("change", (e) => {
+    const postid = e.target.value;
 
-    
-    
+    const result = data.filter((post) => {
+        if (post.postId === Number(postid)) {
+            return post;
+        };
+    });
 
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
+    if (postid === "All") {
+        render(data);
+    } else {
+        render(result);
+    };
+})

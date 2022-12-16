@@ -26,19 +26,14 @@ function Total(numbers) {
 }
   Total([15,-10, 21, 45,-54,-12]);
 
- 
-
-
+  
 // 2-masala POLINDROM SON
 
 function polinumber(number) {
-   // number = 121
     console.log(number);
  arr = [];
    let son = number.toString() ;
     let natija = son.split("") ;
-        console.log(natija);
-    
     let  result = natija.reverse()
     let res = result.join("");
     let last = Number(res)
@@ -50,12 +45,8 @@ function polinumber(number) {
         console.log("ishlamadi");
   
     }
-
 }
 polinumber(124);
-
-
-
 
 // //3 - MASALA KABISA YILI MASALASI
  
@@ -74,7 +65,6 @@ kabisa (4) ;
 
  function NegativeNumbers(numbers) {   
     let negatives = [];
-
     let min = 0 ;
 
     for (let i = 0; i < numbers.length; i++) {
@@ -83,15 +73,5 @@ kabisa (4) ;
             negatives.push(min);
         }  
     }
-    console.log(negatives);
-   
 }
   NegativeNumbers([15,-10, 21, 5, 45,-54,-12]);
-
-
-
-
-
-
-
- 
