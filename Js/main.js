@@ -20,7 +20,7 @@ function render(data) {
         mainDiv.style.gap = "15px";
         mainDiv.style.border = "3px solid green";
         mainDiv.style.borderRadius = "25px";
-        mainDiv.style.backgroundColor = "blue"
+        mainDiv.style.backgroundColor = "rgb(35, 88, 188)"
 
         mainDiv.innerHTML = `
             <h4 class="mb-3"> Name : ${element.name}</h4>
